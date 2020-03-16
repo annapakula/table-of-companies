@@ -11,5 +11,55 @@ html {
 }
 
 body {
+  background: #e0e0e0;
+}
 
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  // min-height: 100vh;
+}
+
+.table {
+  width: 70%;
+  border-collapse: collapse;
+  &__data, &__header {
+    text-align: center;
+    padding: .75rem;
+  }
+  &__row {
+    background: #fff;
+    &:nth-of-type(2n-1) {
+      background: whitesmoke;
+    }
+    &:last-of-type {  
+      &>td {
+        &:first-child {
+          border-radius: 0 0 0 8px;
+        }
+        &:last-child {
+          border-radius: 0 0 8px 0;
+        }
+      }
+    }
+  }
+  &__header {
+    background: slateblue;
+    color: #fff;
+    &:first-child {  
+      border-radius: 8px 0 0 0;
+    }
+    &:last-child {  
+      border-radius: 0 8px 0 0;
+    }
+    &--id {
+      width: 5%;
+    }
+    &--income {
+      width: 15%;
+    }
+  }
 }
