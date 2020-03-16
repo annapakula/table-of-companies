@@ -29,7 +29,7 @@ fetch('https://recruitment.hal.skygate.io/companies')
           });
         })
         .then(res => {
-          tableRows.sort((a, b) => a.income - b.income)
+          tableRows.sort((a, b) => b.income - a.income)
 
           table.innerHTML = `
           <tr class="table__header">
