@@ -1,5 +1,7 @@
 @import "_normalize";
 @import "_variables";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700&display=swap&subset=latin-ext');
 
 
 html {
@@ -12,6 +14,7 @@ html {
 
 body {
   background: #e0e0e0;
+  font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -26,6 +29,9 @@ body {
 .table {
   width: 70%;
   border-collapse: collapse;
+  box-shadow: 0 0 4px 1px (#5757579d);
+  border-radius: 8px;
+
   &__data, &__header {
     text-align: center;
     padding: .75rem;
