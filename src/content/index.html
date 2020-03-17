@@ -11,8 +11,26 @@
   </head>
   <body>
     <main class="container">
-    <h1 class="header">Companies</h1>
-      <table class="table table--js"></table>
+      <h1 class="header">Companies</h1>
+
+      <!-- <form class="form" action=""> -->
+        <div>
+          <label for="filter">Search company:</label>
+          <input class="filter" type="text" id="filter">
+        </div>
+      <!-- </form> -->
+
+      <table class="table">
+        <thead class="table__header">
+          <tr>
+            <th class="table__header table__header--id scope="col">Id</th>
+            <th class="table__header scope="col">Company</th>
+            <th class="table__header scope="col">City</th>
+            <th class="table__header table__header--income scope="col">Total income</th>
+          </tr>
+        </thead>
+        <tbody class="table__body table__body--js"></tbody>
+      </table>
 
     </main>
 
