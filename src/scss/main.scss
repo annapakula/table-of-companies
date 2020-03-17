@@ -3,6 +3,19 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700&display=swap&subset=latin-ext');
 
+@mixin buttons {
+  width: 30px;
+  padding: 4px;
+  margin-bottom: 4px;
+  border: 1px solid $slateblue;
+  border-radius: 4px;
+  background: $white;
+  &:hover {
+    cursor: pointer;
+    background: $slateblue;
+    color: $white;
+  }
+}
 
 html {
   box-sizing: border-box;
@@ -13,7 +26,7 @@ html {
 }
 
 body {
-  background: #e0e0e0;
+  background: $bg;
   font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif;
 }
 
@@ -40,10 +53,10 @@ body {
 .loader {
   padding: 18px;
   width: 100%;
-  background: #fff;
+  background: $white;
   &__item {
-  border: 4px solid lightgrey;
-  border-top: 4px solid slateblue;
+  border: 4px solid $whitesmoke;
+  border-top: 4px solid $slateblue;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -59,11 +72,16 @@ body {
 }
 
 .form {
+  width: 80%;
   display: flex;
+  justify-content: center;
   &__box {
     &:first-child {
-      margin-right: 12px;
+      margin-right: 16px;
     }
+  }
+  &__filter, &__select {
+    padding: 4px;
   }
 }
 
@@ -79,9 +97,9 @@ body {
     padding: .75rem;
   }
   &__row {
-    background: #fff;
+    background: $white;
     &:nth-of-type(2n-1) {
-      background: whitesmoke;
+      background: $whitesmoke;
     }
     &:last-of-type {  
       &>td {
@@ -95,8 +113,8 @@ body {
     }
   }
   &__header {
-    background: slateblue;
-    color: #fff;
+    background: $slateblue;
+    color: $white;
     &:first-child {  
       border-radius: 8px 0 0 0;
     }
@@ -112,9 +130,30 @@ body {
   }
 }
 
-.details {
-  display: none;
-  &--visible {
-    display: block;
+.pagination {
+
+  &__button {
+    @include buttons;
   }
 }
+
+.details {
+  display: none;
+  &__box {
+    background: $white;
+    padding: 20px;
+    border-radius: 8px;    
+  }
+  &--visible {
+    display: block;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.return {
+  @include buttons;
+  width: fit-content;
+}
+

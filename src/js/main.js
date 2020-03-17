@@ -30,12 +30,13 @@ function handleKeypress(e) {
     state.filteredCompanies = state.companiesData.filter(company =>
       company.name.toLowerCase().includes(userInput.toLowerCase())
     );
-    state.page = 1;
+    state.page = 0;
     showData(state.filteredCompanies);
   }, 1000);
 }
 
 function handleSelect(e) {
+  state.page = 0;
   state.perPage = parseInt(e.target.value);
   showData(state.companiesData);
 }
@@ -73,8 +74,8 @@ function fetchData() {
 }
 
 function showData(data) {
-  const sliceFrom = 0 + state.perPage * state.page;
-  const sliceTo = state.perPage + state.perPage * state.page;
+  let sliceFrom = 0 + state.perPage * state.page;
+  let sliceTo = state.perPage + state.perPage * state.page;
   pagination.innerHTML = "";
 
   table.innerHTML = data
@@ -118,12 +119,14 @@ function showData(data) {
             .toFixed(2);
 
           detailsContener.innerHTML = `
-          <h1>${company.cells[1].textContent}</h1>
-          <p>City: ${company.cells[2].textContent}</p>
-          <p>Total income: ${company.cells[3].textContent}</p>
-          <p>Average income: ${averageIncomes}</p>
-          <p>Last month income (${new Date(sortedIncomes[0].date).toLocaleDateString('en-GB', {month: 'long'})}): ${lastMonthIncome}</p>
-          <button class="return" id="return">Return</button>
+          <div class="details__box">
+            <h1>${company.cells[1].textContent}</h1>
+            <p>City: ${company.cells[2].textContent}</p>
+            <p>Total income: ${company.cells[3].textContent}</p>
+            <p>Average income: ${averageIncomes}</p>
+            <p>Last month income (${new Date(sortedIncomes[0].date).toLocaleDateString('en-GB', {month: 'long'})}): ${lastMonthIncome}</p>
+            <button class="return" id="return">Return</button>
+          </div>
           `
 
           const returnButton = document.getElementById('return');
