@@ -17,13 +17,24 @@ body {
   font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif;
 }
 
-.container {
+.main {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  // padding: 20px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   // justify-content: center;
   // min-height: 100vh;
+  &--hidden {
+    display: none;
+  }
 }
 
 .loader {
@@ -47,11 +58,21 @@ body {
   }
 }
 
+.form {
+  display: flex;
+  &__box {
+    &:first-child {
+      margin-right: 12px;
+    }
+  }
+}
+
 .table {
   width: 70%;
   border-collapse: collapse;
   box-shadow: 0 0 4px 1px (#5757579d);
   border-radius: 8px;
+  margin-bottom: 12px;
 
   &__data, &__header {
     text-align: center;
@@ -83,10 +104,17 @@ body {
       border-radius: 0 8px 0 0;
     }
     &--id {
-      width: 5%;
+      // width: 5%;
     }
     &--income {
-      width: 15%;
+      // width: 15%;
     }
+  }
+}
+
+.details {
+  display: none;
+  &--visible {
+    display: block;
   }
 }

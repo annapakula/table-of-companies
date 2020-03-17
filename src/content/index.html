@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <main class="container">
+    <main class="main">
+      <section class="container">
       <h1 class="header">Companies</h1>
 
       <form class="form form--js">
-        <p>
+        <p class="form__box">
           <label for="filter">Search company:</label>
           <input class="form__filter" type="text" id="filter">
         </p>
-        <p>
+        <p class="form__box">
           <label for="page">Items per page:</label>
           <select class="form__select form__select--js">
             <option value="10">10</option>
@@ -44,8 +45,10 @@
 
       <div class="pagination pagination--js">
         <!-- <button class="pagination__button pagination__button--js" id="button1">1</button> -->
-
       </div>
+    </section>
+      
+    <section class="details details--js"></section>
 
     </main>
 
