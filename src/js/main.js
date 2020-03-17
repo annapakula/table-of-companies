@@ -22,24 +22,23 @@ if (!state.loaded) {
   table.innerHTML = `<tr><td colspan="4" class="loader"><div class="loader__item"></div></td></tr>`;
 }
 
-searchCompany.onkeypress = handleChange;
-// searchCompany.onchange = handleChange;
+searchCompany.onkeypress = handleKeypress;
 form.onsubmit = handleSubmit;
 select.onchange = handleSelect;
 
-function handleChange(e) {
+function handleKeypress(e) {
   setTimeout(() => {
     let userInput = e.target.value;
     state.filteredCompanies = state.companiesData.filter(company =>
       company.name.toLowerCase().includes(userInput.toLowerCase())
     );
-    showData(state.filteredCompanies, state.perPage);
+    showData(state.filteredCompanies);
   }, 1000);
 }
 
 function handleSelect(e) {
   state.perPage = parseInt(e.target.value);
-  showData(state.companiesData, state.perPage);
+  showData(state.companiesData);
 }
 
 function handleSubmit(e) {
@@ -74,9 +73,9 @@ function fetchData() {
     });
 }
 
-function showData(data, perPage) {
-  const sliceFrom = 0 + perPage * state.page;
-  const sliceTo = perPage + perPage * state.page;
+function showData(data) {
+  const sliceFrom = 0 + state.perPage * state.page;
+  const sliceTo = state.perPage + state.perPage * state.page;
   pagination.innerHTML = "";
 
   table.innerHTML = data
@@ -95,7 +94,8 @@ function showData(data, perPage) {
 
 
   /* HANDLE PAGINATION */
-  for (let i = 1; i <= state.companiesData.length / state.perPage; i++) {
+
+  for (let i = 1; i <= Math.ceil(data.length / state.perPage); i++) {
     pagination.innerHTML += `
       <button class="pagination__button pagination__button--js">${i}</button>
       `;
@@ -108,8 +108,7 @@ function showData(data, perPage) {
   buttons.map(button => {
     button.addEventListener("click", e => {
       state.page = e.target.textContent - 1;
-      console.log(e.target.textContent);
-      showData(state.companiesData, state.perPage);
+      showData(data, state.perPage);
     });
   });
 }
