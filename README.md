@@ -1,6 +1,8 @@
 # Table of companies
 Table of companies from API. Features: filter, pagination, show details.
 
+[Go to the webpage](https://annamazurek.github.io/table-of-companies/)
+
 # Tools and technologies
 - HTML5
 - CSS3 + SCSS
