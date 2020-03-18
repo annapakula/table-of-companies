@@ -319,16 +319,18 @@ html {
 
 body {
   background: #e0e0e0;
-  font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif; }
-
-.main {
-  padding: 20px;
+  font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif;
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center; }
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px; }
 
 .container {
   width: 100%;
@@ -498,8 +500,6 @@ body {
     font-size: x-small; } }
 
 @media (max-width: 370px) {
-  .main {
-    padding: 2px; }
   .form__box {
     margin: 4px; } }
 
