@@ -12,41 +12,39 @@
   <body>
     <main class="main">
       <section class="container">
-      <h1 class="header">Companies</h1>
+        <h1 class="header">Companies</h1>
 
-      <form class="form form--js">
-        <p class="form__box">
-          <label for="filter">Search company:</label>
-          <input class="form__filter" type="text" id="filter">
-        </p>
-        <p class="form__box">
-          <label for="page">Items per page:</label>
-          <select class="form__select form__select--js">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-          <!-- <input class="form__page" type="number" id="page"> -->
-        </p>
-      </form>
+        <form class="form form--js">
+          <p class="form__box">
+            <label for="filter">Search company:</label>
+            <input class="form__filter" type="text" id="filter">
+          </p>
+          <p class="form__box">
+            <label for="page">Items per page:</label>
+            <select class="form__select form__select--js">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <!-- <input class="form__page" type="number" id="page"> -->
+          </p>
+        </form>
 
-      <table class="table">
-        <thead class="table__header">
-          <tr>
-            <th class="table__header table__header--id scope="col">Id</th>
-            <th class="table__header scope="col">Company</th>
-            <th class="table__header scope="col">City</th>
-            <th class="table__header table__header--income scope="col">Total income</th>
-          </tr>
-        </thead>
-        <tbody class="table__body table__body--js"></tbody>
-      </table>
+        <table class="table">
+          <thead class="table__header">
+            <tr>
+              <th class="table__header table__header--id scope="col">Id</th>
+              <th class="table__header scope="col">Company</th>
+              <th class="table__header scope="col">City</th>
+              <th class="table__header table__header--income scope="col">Total income</th>
+            </tr>
+          </thead>
+          <tbody class="table__body table__body--js"></tbody>
+        </table>
 
-      <div class="pagination pagination--js">
-        <!-- <button class="pagination__button pagination__button--js" id="button1">1</button> -->
-      </div>
-    </section>
+        <div class="pagination pagination--js"></div>
+      </section>
       
     <section class="details details--js"></section>
 
