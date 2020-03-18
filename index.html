@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Table of companies</title>
     <meta name="description" content="Table of companies from API, made for recruitment process" />
-    <!-- <link rel="manifest" href="manifest.json" /> -->
     <link rel="stylesheet" href="css/main.css" />
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
     <main class="main">
@@ -27,7 +28,6 @@
               <option value="50">50</option>
               <option value="100">100</option>
             </select>
-            <!-- <input class="form__page" type="number" id="page"> -->
           </p>
         </form>
 
@@ -46,10 +46,13 @@
         <div class="pagination pagination--js"></div>
       </section>
       
-    <section class="details details--js"></section>
-
+    <section class="details details--js">
+      <div class="details__incomes details__incomes--js"></div>
+      <div class="chart" id="chart_div"></div>
+      <button class="return" id="return">Return</button>
+    </section>
     </main>
-
+    
     <script src="js/main.js"></script>
   </body>
 </html>
