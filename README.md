@@ -4,15 +4,19 @@ Table of companies from API. Features: filter, pagination, show details.
 # Tools and technologies
 - HTML5
 - CSS3 + SCSS
-- JavaScript
+- JavaScript (ES6)
 - BEM methodology
+- RWD
 - NPM
 - Gulp
 
 # To run project locally
+Install Node.js (you can download it [here](https://nodejs.org/en/))
 
-`npm install -g gulp-cli`
+### Type in your command line:
+`npm install -g gulp-cli` -> install Gulp globally (you may need to open a terminal as an administrator)
 
+### Go to the main folder of the project and type:
 `npm install`
 
-`gulp`
+`gulp` -> start task runner - the webpage will open automatically
