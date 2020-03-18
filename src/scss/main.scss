@@ -132,18 +132,20 @@ body {
 
 .details {
   display: none;
-  &__box {
+  &--visible {
     background: $white;
     padding: 20px;
     border-radius: 8px;    
-  }
-  &--visible {
-    display: block;
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
+}
+
+.chart {
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .return {
@@ -155,6 +157,9 @@ body {
   display: none;
   &--visible {
     display: block;
+    padding: 8px;
+    border-radius: 4px;
+    background: $whitesmoke;
   }
 }
 

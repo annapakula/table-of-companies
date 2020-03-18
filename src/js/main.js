@@ -11,8 +11,8 @@ let state = {
   filteredCompanies: [],
   page: 0,
   perPage: 10,
-  loaded: false,
-}
+  loaded: false
+};
 
 if (!state.loaded) {
   table.innerHTML = `<tr><td colspan="4" class="loader"><div class="loader__item"></div></td></tr>`;
@@ -56,7 +56,7 @@ function fetchData() {
               .map(income => parseFloat(income.value))
               .reduce((a, b) => a + b);
 
-              state.companiesData.push({
+            state.companiesData.push({
               id: company.id,
               name: company.name,
               city: company.city,
@@ -69,6 +69,20 @@ function fetchData() {
           });
       });
     });
+}
+
+function countAvgIncomes(data) {
+  const avgIncomes =
+    data.map(income => parseFloat(income.value)).reduce((a, b) => a + b) /
+    data.length;
+  return avgIncomes.toFixed(2);
+}
+
+function countTotalIncomes(data) {
+  return data
+    .map(income => parseFloat(income.value))
+    .reduce((a, b) => a + b)
+    .toFixed(2);
 }
 
 function showData(data) {
@@ -90,52 +104,52 @@ function showData(data) {
     .slice(sliceFrom, sliceTo)
     .join("");
 
+  /* HANDLE COMPANY DETAILS */
 
-/* HANDLE COMPANY DETAILS */
+  const detailsContener = document.querySelector(".details--js");
+  const detailsIncomes = document.querySelector(".details__incomes");
+  const tableContainer = document.querySelector(".container");
+  const companyDetails = Array.from(
+    document.querySelectorAll(".table__row--js")
+  );
 
-const detailsContener = document.querySelector('.details--js');
-const tableContainer = document.querySelector('.container');
-const companyDetails = Array.from(document.querySelectorAll('.table__row--js'));
-
-    function countAvgIncomes(data) {
-      const avgIncomes = data.map(income => parseFloat(income.value)).reduce((a,b) => a+b) / data.length;
-      return avgIncomes.toFixed(2);
-    }
-
-    function countTotalIncomes(data) {
-      return data
-      .map(income => parseFloat(income.value))
-      .reduce((a,b) => a+b)
-      .toFixed(2);
-    }
-
-    companyDetails.map(company => company.addEventListener('click', () => {
-      detailsContener.classList.add('details--visible');
-      tableContainer.classList.add('container--hidden');
+  companyDetails.map(company =>
+    company.addEventListener("click", () => {
+      detailsContener.classList.add("details--visible");
+      tableContainer.classList.add("container--hidden");
       let averageIncomes = null;
       let lastMonthIncome = null;
-      let totalRangeIncome = 'No incomes in selected range';
-      let avgRangeIncome = 'No incomes in selected range';
+      let totalRangeIncome = "No incomes in selected range";
+      let avgRangeIncome = "No incomes in selected range";
 
       fetch("https://recruitment.hal.skygate.io/incomes/" + company.id)
         .then(res => res.json())
         .then(data => {
-          
-          const sortedIncomes = data.incomes.sort((a,b) => new Date(b.date) - new Date(a.date))
+          const sortedIncomes = data.incomes.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
           const lastMonth = new Date(sortedIncomes[0].date).getMonth();
           const relevantYear = new Date(sortedIncomes[0].date).getFullYear();
-          const filteredIncomes = sortedIncomes.filter(item => new Date(item.date).getMonth() === lastMonth && new Date(item.date).getFullYear() === relevantYear)
-          
-          lastMonthIncome = countTotalIncomes(filteredIncomes)
-          averageIncomes = countAvgIncomes(data.incomes)
-          
-          detailsContener.innerHTML = `
+          const filteredIncomes = sortedIncomes.filter(
+            item =>
+              new Date(item.date).getMonth() === lastMonth &&
+              new Date(item.date).getFullYear() === relevantYear
+          );
+
+          lastMonthIncome = countTotalIncomes(filteredIncomes);
+          averageIncomes = countAvgIncomes(data.incomes);
+
+          detailsIncomes.innerHTML = `
           <div class="details__box">
           <h1>${company.cells[1].textContent}</h1>
           <p><b>City:</b> ${company.cells[2].textContent}</p>
           <p><b>Total income:</b> ${company.cells[3].textContent}</p>
           <p><b>Average income:</b> ${averageIncomes}</p>
-          <p><b>Last month income</b> (${new Date(sortedIncomes[0].date).toLocaleDateString('en-GB', {month: 'long'})}): ${lastMonthIncome}</p>
+          <p><b>Last month income</b> (${new Date(
+            sortedIncomes[0].date
+          ).toLocaleDateString("en-GB", {
+            month: "long"
+          })}): ${lastMonthIncome}</p>
           <p><b>Show total and average incomes</b></p>
         
           <p>
@@ -149,69 +163,75 @@ const companyDetails = Array.from(document.querySelectorAll('.table__row--js'));
           </p>
 
           <div class="details__range details__range--js"></div>
-
-          <button class="return" id="return">Return</button>
           </div>
-          `
+          `;
 
-          const incomesFrom = document.getElementById('incomes-from');
-          const incomesTo = document.getElementById('incomes-to');
-          const tooltip = document.querySelector('.tooltip--js');
-          const detailsRange = document.querySelector('.details__range--js');
+          const incomesFrom = document.getElementById("incomes-from");
+          const incomesTo = document.getElementById("incomes-to");
+          const tooltip = document.querySelector(".tooltip--js");
+          const detailsRange = document.querySelector(".details__range--js");
           let dateFrom = null;
           let dateTo = null;
 
-          incomesFrom.addEventListener('change', (e) => {
-            if(e.target.value <= dateTo) {
-              tooltip.classList.remove('tooltip--visible');
+          incomesFrom.addEventListener("change", e => {
+            if (e.target.value <= dateTo) {
+              tooltip.classList.remove("tooltip--visible");
             } else {
-              tooltip.classList.add('tooltip--visible');
-              totalRangeIncome = 'No incomes in selected range';
-              avgRangeIncome = 'No incomes in selected range';
-              detailsRange.innerHTML = '';
+              tooltip.classList.add("tooltip--visible");
+              totalRangeIncome = "No incomes in selected range";
+              avgRangeIncome = "No incomes in selected range";
+              detailsRange.innerHTML = "";
             }
             dateFrom = e.target.value;
             filterIncomesFromRange();
-          })
-          
-          incomesTo.addEventListener('change', (e) => {
-            if(e.target.value < dateFrom) {
-              tooltip.classList.add('tooltip--visible');
-              totalRangeIncome = 'No incomes in selected range';
-              avgRangeIncome = 'No incomes in selected range';
-              detailsRange.innerHTML = '';
+          });
+
+          incomesTo.addEventListener("change", e => {
+            if (e.target.value < dateFrom) {
+              tooltip.classList.add("tooltip--visible");
+              totalRangeIncome = "No incomes in selected range";
+              avgRangeIncome = "No incomes in selected range";
+              detailsRange.innerHTML = "";
             } else {
-              tooltip.classList.remove('tooltip--visible');
-          }
+              tooltip.classList.remove("tooltip--visible");
+            }
 
             dateTo = e.target.value;
             filterIncomesFromRange();
-          })
+          });
 
           function filterIncomesFromRange() {
-            if(dateTo >= dateFrom && dateFrom !== null && dateTo !== null) {
-              const filteredIncomesFromRange = sortedIncomes.filter(item => new Date(item.date).getTime() >= new Date(dateFrom).getTime() && new Date(item.date).getTime() <= new Date(dateTo).getTime());
+            if (dateTo >= dateFrom && dateFrom !== null && dateTo !== null) {
+              const filteredIncomesFromRange = sortedIncomes.filter(
+                item =>
+                  new Date(item.date).getTime() >=
+                    new Date(dateFrom).getTime() &&
+                  new Date(item.date).getTime() <= new Date(dateTo).getTime()
+              );
 
-              if(filteredIncomesFromRange != false) {
+              if (filteredIncomesFromRange != false) {
                 totalRangeIncome = countTotalIncomes(filteredIncomesFromRange);
-                avgRangeIncome = countAvgIncomes(filteredIncomesFromRange)
+                avgRangeIncome = countAvgIncomes(filteredIncomesFromRange);
               }
-                detailsRange.innerHTML = `
+              detailsRange.innerHTML = `
                 <p>total: ${totalRangeIncome}</p>
                 <p>average: ${avgRangeIncome}</p>
                 `;
             }
           }
 
-          const returnButton = document.getElementById('return');
-          returnButton.addEventListener('click', () => {
-            detailsContener.classList.remove('details--visible')
-            tableContainer.classList.remove('container--hidden')
-          })
-        })
-    }))
+          const returnButton = document.getElementById("return");
+          returnButton.addEventListener("click", () => {
+            detailsContener.classList.remove("details--visible");
+            tableContainer.classList.remove("container--hidden");
+          });
 
-/* HANDLE PAGINATION */
+          showGraph(sortedIncomes);
+        });
+    })
+  );
+
+  /* HANDLE PAGINATION */
   for (let i = 1; i <= Math.ceil(data.length / state.perPage); i++) {
     pagination.innerHTML += `
       <button class="pagination__button pagination__button--js">${i}</button>
@@ -221,13 +241,77 @@ const companyDetails = Array.from(document.querySelectorAll('.table__row--js'));
   const buttons = Array.from(
     document.querySelectorAll(".pagination__button--js")
   );
-  
+
   buttons.map(button => {
     button.addEventListener("click", e => {
       state.page = e.target.textContent - 1;
       showData(data, state.perPage);
     });
   });
+}
+
+/* HANDLE GRAPH */
+
+function showGraph(incomesArr) {
+  const monthlyIncomes = {};
+
+  incomesArr.map(income => {
+    income.id = `${new Date(income.date).toLocaleDateString("en-GB", {
+      month: "short"
+    })} ${new Date(income.date).getFullYear()}`;
+
+    if (monthlyIncomes.hasOwnProperty(income.id)) {
+      monthlyIncomes[income.id] += +income.value;
+    } else {
+      monthlyIncomes[income.id] = +income.value;
+    }
+  });
+
+  console.log(monthlyIncomes);
+
+  // Load the Visualization API and the corechart package.
+  google.charts.load("current", { packages: ["corechart"] });
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+    function getPoints() {
+      let d = [];
+      for (let [key, value] of Object.entries(monthlyIncomes)) {
+        d.push([key, value]);
+      }
+      return d.reverse();
+    }
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "");
+    data.addColumn("number", "");
+    data.addRows(getPoints());
+
+    // Set chart options
+    var options = {
+      title: "Monthly incomes",
+      height: 300,
+      legend: { position: "none" },
+      colors: ["#6a5acd"],
+      animation: {
+        duration: 1000,
+        easing: "inAndOut",
+        startup: true
+      }
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(
+      document.getElementById("chart_div")
+    );
+    chart.draw(data, options);
+  }
 }
 
 fetchData();
