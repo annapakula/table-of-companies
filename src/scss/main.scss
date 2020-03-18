@@ -32,6 +32,8 @@ body {
 
 .main {
   padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -104,6 +106,10 @@ body {
         }
       }
     }
+    &:hover {
+      cursor: pointer;
+      background: darken($color: #6a5acd05, $amount: 0);
+    }
   }
   &__header {
     background: $slateblue;
@@ -139,11 +145,21 @@ body {
     justify-content: center;
   }
 }
+
 .return {
   @include buttons;
   width: fit-content;
 }
 
+.tooltip {
+  display: none;
+  &--visible {
+    display: block;
+  }
+}
+
+
+// MEDIA QUERIES
 @media (max-width: 768px) {
   .form {
     width: 100%;
